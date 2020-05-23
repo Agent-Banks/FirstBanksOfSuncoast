@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using CsvHelper;
 
 namespace FirstBanksOfSuncoast
 {
@@ -124,6 +127,12 @@ namespace FirstBanksOfSuncoast
                     }
                 }
             }
+            var fileWriter = new StreamWriter("transactions.csv");
+            var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+
+            csvWriter.WriteRecords(checkingAccount.Transactions);
+            csvWriter.WriteRecords(savingsAccount.Transactions);
+            fileWriter.Close();
         }
     }
 }

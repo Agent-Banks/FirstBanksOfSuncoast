@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FirstBanksOfSuncoast
 {
@@ -6,7 +7,19 @@ namespace FirstBanksOfSuncoast
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to C#");
+            var checkingAccount = new Account()
+            {
+                Id = 1,
+                AccountType = "Checking",
+                Transactions = new List<Transaction>()
+            };
+
+            var savingsAccount = new Account()
+            {
+                Id = 2,
+                AccountType = "Savings",
+                Transactions = new List<Transaction>()
+            };
         }
     }
 }

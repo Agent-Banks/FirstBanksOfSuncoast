@@ -68,8 +68,20 @@ namespace FirstBanksOfSuncoast
 
             while (userWantsToQuit == false)
             {
+                Console.WriteLine("-----------------------");
                 Console.WriteLine("Please choose an option");
+                Console.WriteLine("(V)iew my account balances");
+                Console.WriteLine("(D)eposit into one of my accounts");
+                Console.WriteLine("(W)ithdraw from one of my accounts");
+                Console.WriteLine("(Q)uit the application");
+                Console.WriteLine("-----------------------");
 
+                var option = PromptForString("Option: ");
+
+                if (option == "Q")
+                {
+                    userWantsToQuit = true;
+                }
             }
         }
     }

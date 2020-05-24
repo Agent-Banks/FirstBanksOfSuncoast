@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using CsvHelper;
 
 namespace FirstBanksOfSuncoast
@@ -53,6 +54,7 @@ namespace FirstBanksOfSuncoast
         }
         static void Main(string[] args)
         {
+
             var checkingAccount = new Account()
             {
                 Id = 1,
@@ -66,6 +68,30 @@ namespace FirstBanksOfSuncoast
                 AccountType = "Savings",
                 Transactions = new List<Transaction>()
             };
+
+            if (File.Exists("transactions.csv"))
+            {
+                var reader = new StreamReader("transactions.csv");
+
+                var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+                checkingAccount.Transactions = csvReader.GetRecords<Transaction>().ToList();
+                savingsAccount.Transactions = csvReader.GetRecords<Transaction>().ToList();
+            }
+
+            var orderCheckingTransactionsByTime = checkingAccount.Transactions.OrderBy(transactions => transactions.TransactionDate);
+            foreach (var transaction in orderCheckingTransactionsByTime)
+            {
+                var description = transaction.Description;
+                Console.WriteLine(description);
+            }
+
+            var orderSavingsTransactionsByTime = savingsAccount.Transactions.OrderBy(transactions => transactions.TransactionDate);
+            foreach (var transaction in orderSavingsTransactionsByTime)
+            {
+                var description = transaction.Description;
+                Console.WriteLine(description);
+            }
 
             var userWantsToQuit = false;
 
@@ -86,7 +112,46 @@ namespace FirstBanksOfSuncoast
                 {
                     userWantsToQuit = true;
                 }
+                if (option == "W")
+                {
+                    Console.WriteLine("What account would you like to withdraw funds from (C)hecking or (S)avings?");
+                    var accountChoice = PromptForString("Option: ");
 
+                    if (accountChoice == "C")
+                    {
+                        var newId = Guid.NewGuid();
+                        var newAccountId = 1;
+                        var newAmount = PromptForDecimal("Amount to Withdraw: ");
+                        var newDate = DateTime.Now;
+                        var newTransaction = new Transaction
+                        {
+                            Id = newId,
+                            AccountId = newAccountId,
+                            Amount = newAmount,
+                            Description = ($" Withdraw {newAmount} from your Checking account"),
+                            TransactionDate = newDate,
+                        };
+                        checkingAccount.Transactions.Add(newTransaction);
+                        Console.WriteLine($" Withdraw {newAmount} from your Checking account");
+                    }
+                    if (accountChoice == "S")
+                    {
+                        var newId = Guid.NewGuid();
+                        var newAccountId = 2;
+                        var newAmount = PromptForDecimal("Amount to Withdraw: ");
+                        var newDate = DateTime.Now;
+                        var newTransaction = new Transaction
+                        {
+                            Id = newId,
+                            AccountId = newAccountId,
+                            Amount = newAmount,
+                            Description = ($" Withdraw {newAmount} from your savings account"),
+                            TransactionDate = newDate,
+                        };
+                        savingsAccount.Transactions.Add(newTransaction);
+                        Console.WriteLine($" Withdraw {newAmount} from your savings account");
+                    }
+                }
                 if (option == "D")
                 {
                     Console.WriteLine("What account would you like to deposit funds into (C)hecking or (S)avings?");
@@ -103,10 +168,11 @@ namespace FirstBanksOfSuncoast
                             Id = newId,
                             AccountId = newAccountId,
                             Amount = newAmount,
+                            Description = ($" Deposited {newAmount} to your Checking account"),
                             TransactionDate = newDate,
                         };
                         checkingAccount.Transactions.Add(newTransaction);
-                        Console.WriteLine($"You have deposited {newAmount} into your checking account");
+                        Console.WriteLine($" Deposited {newAmount} into your Checking account");
                     }
 
                     if (accountChoice == "S")
@@ -120,10 +186,11 @@ namespace FirstBanksOfSuncoast
                             Id = newId,
                             AccountId = newAccountId,
                             Amount = newAmount,
+                            Description = ($" Deposited {newAmount} into your Savings account"),
                             TransactionDate = newDate,
                         };
                         savingsAccount.Transactions.Add(newTransaction);
-                        Console.WriteLine($"You have deposited {newAmount} into your savings account");
+                        Console.WriteLine($" Deposited {newAmount} into your Savings account");
                     }
                 }
             }

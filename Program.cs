@@ -55,6 +55,8 @@ namespace FirstBankOfSuncoast
             transactionsController.LoadAllTransactions();
 
             transactionsController.RecallTransactionsByTime();
+            transactionsController.DisplayCheckingAccountBalance();
+            transactionsController.DisplaySavingsAccountBalance();
 
 
             var userHasQuitApp = false;
@@ -139,7 +141,7 @@ namespace FirstBankOfSuncoast
                             AccountId = 1,
                             AccountType = "Checking",
                             TransactionType = "Withdraw",
-                            Amount = newAmount * -1,
+                            Amount = newAmount,
                             TransactionDate = DateTime.Now,
                         };
 
@@ -159,7 +161,7 @@ namespace FirstBankOfSuncoast
                             AccountId = 2,
                             AccountType = "Savings",
                             TransactionType = "Withdraw",
-                            Amount = newAmount * -1,
+                            Amount = newAmount,
                             TransactionDate = DateTime.Now,
 
                         };

@@ -14,10 +14,5 @@ namespace FirstBankOfSuncoast
         public decimal Value { get; set; }
 
 
-
-        // public decimal GetBalance();
-        // {
-
-        // }
     }
 }

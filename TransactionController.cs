@@ -5,84 +5,99 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 
-namespace FirstBanksOfSuncoast
+namespace FirstBankOfSuncoast
 {
-
-    class TransactionController
+    class TransactionsController
     {
-        public List<Transaction> Transactions = new List<Transaction>();
-        public void LoadAllTransactions()
-        {
-            if (File.Exists("transactions.cvs"))
-            {
-                var reader = new StreamReader("transactions.cvs");
-                var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                Transactions = csvReader.GetRecords<Transaction>().ToList();
-            }
-        }
+        private List<Transaction> Transactions = new List<Transaction>();
+
         public void SaveAllTransactions()
         {
-            var writer = new StreamWriter("transactions.csv");
+            var writer = new StreamWriter("Transactions.csv");
 
             var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);
 
             csvWriter.WriteRecords(Transactions);
+
             writer.Close();
         }
 
-        public IEnumerable<Transaction> orderTransactionsByTime()
+        public void LoadAllTransactions()
         {
-            return Transactions.OrderBy(transaction => transaction.TransactionDate);
-            //var orderTransactionsByTime = Transactions.OrderBy(transactions => transactions.TransactionDate);
-            //foreach (var transaction in orderTransactionsByTime)
+            if (File.Exists("transactions.csv"))
             {
-                //var description = transaction.Description;
-                //return description;
+                var reader = new StreamReader("transactions.csv");
+
+                var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+                Transactions = csvReader.GetRecords<Transaction>().ToList();
+
             }
         }
 
-        public void AddNewWithdrawTransaction(Guid newId, int newAccountId, decimal newAmount, DateTime newDate)
-        {
 
-            var newTransaction = new Transaction
+        public void RecallTransactionsByTime()
+        {
+            var orderAccountValueByTime = Transactions.OrderBy(transactions => transactions.TransactionDate);
+            foreach (var transaction in orderAccountValueByTime)
             {
-                Id = newId,
-                AccountId = newAccountId,
-                Amount = newAmount * -1,
-                Description = ($"Withdraw {newAmount} from your account"),
-                TransactionDate = newDate,
-            };
+                var description = transaction.Description();
+                Console.WriteLine(description);
+            }
 
-            Transactions.Add(newTransaction);
-
-            SaveAllTransactions();
         }
-        public void ComputeAllAccountValues()
+
+        public void DisplayCheckingAccountBalance()
         {
+
             var checkingTransaction = Transactions.Where(transactions => transactions.AccountId == 1).ToList();
-            var savingsTransaction = Transactions.Where(transactions => transactions.AccountId == 2).ToList();
 
             var checkingAccountValue = new List<decimal>();
-            var savingsAccountValue = new List<decimal>();
 
             foreach (var transaction in checkingTransaction)
             {
-
                 checkingAccountValue.Add(transaction.Amount);
             }
 
-            var totalValueChecking = checkingAccountValue.Sum();
-            Console.WriteLine($"Current Balance of Checking account is {totalValueChecking}");
+            var totalValueForCheckingAccount = checkingAccountValue.Sum();
+            Console.WriteLine($"Your current balance of your checking account is {totalValueForCheckingAccount}");
+
+
+        }
+
+        public void DisplaySavingsAccountBalance()
+        {
+            var savingsTransaction = Transactions.Where(transactions => transactions.AccountId == 2).ToList();
+
+            var savingsAccountValue = new List<decimal>();
 
             foreach (var transaction in savingsTransaction)
             {
                 savingsAccountValue.Add(transaction.Amount);
             }
 
-            var totalValueSavings = savingsAccountValue.Sum();
-            Console.WriteLine($"Current Balance of Savings account is {totalValueSavings}");
+            var totalValueForSavingsAccount = savingsAccountValue.Sum();
+            Console.WriteLine($"Your current balance of your savings account is {totalValueForSavingsAccount}");
         }
 
+        internal void DepositChecking(Transaction newTransaction)
+        {
+            Transactions.Add(newTransaction);
+        }
 
+        internal void WithdrawChecking(Transaction newTransaction)
+        {
+            Transactions.Add(newTransaction);
+        }
+
+        internal void WithdrawSavings(Transaction newTransaction)
+        {
+            Transactions.Add(newTransaction);
+        }
+
+        internal void DepositSavings(Transaction newTransaction)
+        {
+            Transactions.Add(newTransaction);
+        }
     }
 }

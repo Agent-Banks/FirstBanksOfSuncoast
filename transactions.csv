@@ -1,1 +1,3 @@
-Id,AccountId,Description,Amount,TransactionDate
+Id,AccountId,Amount,AccountType,TransactionType,TransactionDate
+5ca8ddc7-c52a-4e9b-9b8f-563d8931d149,1,100,Checking,Deposit,05/25/2020 14:29:40
+4af1ffb5-75e0-418c-a4f1-58991d641985,2,100,Savings,Deposit,05/25/2020 14:29:48

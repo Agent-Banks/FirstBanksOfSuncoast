@@ -36,40 +36,18 @@ namespace FirstBankOfSuncoast
         }
 
 
-        public void RecallTransactionsByTime()
-        {
-            var orderAccountValueByTime = Transactions.OrderBy(transactions => transactions.TransactionDate);
-            foreach (var transaction in orderAccountValueByTime)
-            {
-                var description = transaction.Description();
-                Console.WriteLine(description);
-            }
-
-        }
 
         public void DisplayCheckingAccountBalance()
         {
 
+
             var checkingTransaction = Transactions.Where(transactions => transactions.AccountId == 1).ToList();
+            var withdrawTotalValue = checkingTransaction.Where(transactions => transactions.TransactionType == "Withdraw");
+            var depositTotalValue = checkingTransaction.Where(transactions => transactions.TransactionType == "Deposit");
+            var withdrawTotal = withdrawTotalValue.Sum(transactions => transactions.Amount);
+            var depositTotal = depositTotalValue.Sum(transactions => transactions.Amount);
 
-            var toalVALUE = checkingTransaction.Find(transaction => checkingTransaction.Contains("Withdraw"));
-            foreach (var transaction in checkingTransaction)
-            {
-                while (transaction.TransactionType == "Withdraw")
-                {
-                    var withdrawTotalValue = checkingTransaction.Sum(transactions => transaction.Amount);
-
-                }
-                while (transaction.TransactionType == "Deposit")
-                {
-                    var depositTotalValue = checkingTransaction.Sum(transactions => transaction.Amount);
-                }
-                var totalAccountValue = depositTotalValue - withdrawTotalValue;
-
-
-            }
-
-            var checkingAccountValue = checkingTransaction.Sum(transactions => transactions.Amount);
+            var checkingAccountValue = depositTotal - withdrawTotal;
 
             Console.WriteLine($"Your current balance of your checking account is {checkingAccountValue}");
         }

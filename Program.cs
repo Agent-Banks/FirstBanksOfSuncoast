@@ -54,7 +54,6 @@ namespace FirstBankOfSuncoast
             var transactionsController = new TransactionsController();
             transactionsController.LoadAllTransactions();
 
-            transactionsController.RecallTransactionsByTime();
             transactionsController.DisplayCheckingAccountBalance();
             transactionsController.DisplaySavingsAccountBalance();
 

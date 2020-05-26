@@ -36,13 +36,13 @@ namespace FirstBankOfSuncoast
 
         static void Main(string[] args)
         {
-            var transactionsController = new TransactionsController();
-            transactionsController.LoadAllTransactions();
+            var transactionController = new TransactionsController();
+            transactionController.LoadAllTransactions();
 
-            transactionsController.ComputeCheckingAccountBalance();
-            transactionsController.ComputeSavingsAccountBalance();
-            Console.WriteLine($"You have {transactionsController.CheckingAccountValue} in your checking account");
-            Console.WriteLine($"You have {transactionsController.SavingsAccountValue} in your savings account");
+            transactionController.ComputeCheckingAccountBalance();
+            transactionController.ComputeSavingsAccountBalance();
+            Console.WriteLine($"You have {transactionController.CheckingAccountValue} in your checking account");
+            Console.WriteLine($"You have {transactionController.SavingsAccountValue} in your savings account");
 
 
             var userHasQuitApp = false;
@@ -60,10 +60,10 @@ namespace FirstBankOfSuncoast
                 var option = PromptForString("Option: ");
                 if (option == "V")
                 {
-                    transactionsController.ComputeCheckingAccountBalance();
-                    transactionsController.ComputeSavingsAccountBalance();
-                    Console.WriteLine($"You have {transactionsController.CheckingAccountValue} in your checking account");
-                    Console.WriteLine($"You have {transactionsController.SavingsAccountValue} in your savings account");
+                    transactionController.ComputeCheckingAccountBalance();
+                    transactionController.ComputeSavingsAccountBalance();
+                    Console.WriteLine($"You have {transactionController.CheckingAccountValue} in your checking account");
+                    Console.WriteLine($"You have {transactionController.SavingsAccountValue} in your savings account");
                 }
                 if (option == "Q")
                 {
@@ -96,11 +96,11 @@ namespace FirstBankOfSuncoast
 
                         else
                         {
-                            transactionsController.DepositChecking(newTransaction);
+                            transactionController.DepositChecking(newTransaction);
                             Console.WriteLine($"You deposited {newAmount} into your checking account.");
-                            transactionsController.SaveAllTransactions();
-                            transactionsController.ComputeCheckingAccountBalance();
-                            transactionsController.ComputeSavingsAccountBalance();
+                            transactionController.SaveAllTransactions();
+                            transactionController.ComputeCheckingAccountBalance();
+                            transactionController.ComputeSavingsAccountBalance();
                         }
 
                     }
@@ -125,11 +125,11 @@ namespace FirstBankOfSuncoast
 
                         else
                         {
-                            transactionsController.DepositSavings(newTransaction);
+                            transactionController.DepositSavings(newTransaction);
                             Console.WriteLine($"You deposited {newAmount} into your savings account.");
-                            transactionsController.SaveAllTransactions();
-                            transactionsController.ComputeCheckingAccountBalance();
-                            transactionsController.ComputeSavingsAccountBalance();
+                            transactionController.SaveAllTransactions();
+                            transactionController.ComputeCheckingAccountBalance();
+                            transactionController.ComputeSavingsAccountBalance();
                         }
                     }
                 }
@@ -155,17 +155,17 @@ namespace FirstBankOfSuncoast
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu.");
                         }
-                        if (transactionsController.CheckingAccountValue < newAmount)
+                        if (transactionController.CheckingAccountValue < newAmount)
                         {
                             Console.WriteLine("This would cause your account to overdraft. Returning to main menu.");
                         }
                         else
                         {
-                            transactionsController.WithdrawChecking(newTransaction);
+                            transactionController.WithdrawChecking(newTransaction);
                             Console.WriteLine($"You withdrew {newAmount} from your checking account.");
-                            transactionsController.SaveAllTransactions();
-                            transactionsController.ComputeCheckingAccountBalance();
-                            transactionsController.ComputeSavingsAccountBalance();
+                            transactionController.SaveAllTransactions();
+                            transactionController.ComputeCheckingAccountBalance();
+                            transactionController.ComputeSavingsAccountBalance();
                         }
                     }
 
@@ -188,17 +188,17 @@ namespace FirstBankOfSuncoast
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu and please try again.");
                         }
-                        if (transactionsController.SavingsAccountValue < newAmount)
+                        if (transactionController.SavingsAccountValue < newAmount)
                         {
                             Console.WriteLine("This would cause your account to overdraft Returning to main menu");
                         }
                         else
                         {
-                            transactionsController.WithdrawSavings(newTransaction);
+                            transactionController.WithdrawSavings(newTransaction);
                             Console.WriteLine($"You withdrew {newAmount} from your savings account.");
-                            transactionsController.SaveAllTransactions();
-                            transactionsController.ComputeCheckingAccountBalance();
-                            transactionsController.ComputeSavingsAccountBalance();
+                            transactionController.SaveAllTransactions();
+                            transactionController.ComputeCheckingAccountBalance();
+                            transactionController.ComputeSavingsAccountBalance();
                         }
                     }
                 }

@@ -10,6 +10,8 @@ namespace FirstBankOfSuncoast
     class TransactionsController
     {
         private List<Transaction> Transactions = new List<Transaction>();
+        public decimal CheckingAccountValue { get; set; }
+        public decimal SavingsAccountValue { get; set; }
 
         public void SaveAllTransactions()
         {
@@ -47,20 +49,22 @@ namespace FirstBankOfSuncoast
             var withdrawTotal = withdrawTotalValue.Sum(transactions => transactions.Amount);
             var depositTotal = depositTotalValue.Sum(transactions => transactions.Amount);
 
-            var checkingAccountValue = depositTotal - withdrawTotal;
+            CheckingAccountValue = depositTotal - withdrawTotal;
 
-            Console.WriteLine($"Your current balance of your checking account is {checkingAccountValue}");
+            Console.WriteLine($"Your current balance of your checking account is {CheckingAccountValue}");
         }
 
         public void DisplaySavingsAccountBalance()
         {
             var savingsTransaction = Transactions.Where(transactions => transactions.AccountId == 2).ToList();
+            var withdrawTotalValue = savingsTransaction.Where(transactions => transactions.TransactionType == "Withdraw");
+            var depositTotalValue = savingsTransaction.Where(transactions => transactions.TransactionType == "Deposit");
+            var withdrawTotal = withdrawTotalValue.Sum(transactions => transactions.Amount);
+            var depositTotal = depositTotalValue.Sum(transactions => transactions.Amount);
 
-            var withdrawTransaction = Transactions.Select(transactions => transactions.TransactionType == "Withdraw");
+            SavingsAccountValue = depositTotal - withdrawTotal;
 
-            var savingsAccountValue = savingsTransaction.Sum(transactions => transactions.Amount);
-
-            Console.WriteLine($"Your current balance of your savings account is {savingsAccountValue}");
+            Console.WriteLine($"Your current balance of your savings account is {SavingsAccountValue}");
         }
 
         internal void DepositChecking(Transaction newTransaction)

@@ -71,7 +71,11 @@ namespace FirstBankOfSuncoast
                 Console.WriteLine();
 
                 var choice = PromptForString("Choice: ");
-
+                if (choice == "V")
+                {
+                    transactionsController.DisplayCheckingAccountBalance();
+                    transactionsController.DisplaySavingsAccountBalance();
+                }
                 if (choice == "Q")
                 {
                     userHasQuitApp = true;
@@ -100,9 +104,16 @@ namespace FirstBankOfSuncoast
                         {
                             Console.WriteLine("You have inputted an invalid amount. Returning to main menu and please try again.");
                         }
-                        transactionsController.DepositChecking(newTransaction);
-                        Console.WriteLine($"You have deposited {newAmount} into your checking account.");
-                        transactionsController.SaveAllTransactions();
+                        if (transactionsController.CheckingAccountValue < newAmount)
+                        {
+                            Console.WriteLine("This would cause your account to overdraft Returning to main menu");
+                        }
+                        else
+                        {
+                            transactionsController.DepositChecking(newTransaction);
+                            Console.WriteLine($"You have deposited {newAmount} into your checking account.");
+                            transactionsController.SaveAllTransactions();
+                        }
 
                     }
 
@@ -119,10 +130,20 @@ namespace FirstBankOfSuncoast
                             TransactionDate = DateTime.Now,
 
                         };
-                        transactionsController.DepositSavings(newTransaction);
-                        Console.WriteLine($"You have deposited {newAmount} into your savings account.");
-                        transactionsController.SaveAllTransactions();
-
+                        if (newAmount <= 0)
+                        {
+                            Console.WriteLine("You have inputted an invalid amount. Returning to main menu and please try again.");
+                        }
+                        if (transactionsController.SavingsAccountValue < newAmount)
+                        {
+                            Console.WriteLine("This would cause your account to overdraft Returning to main menu");
+                        }
+                        else
+                        {
+                            transactionsController.DepositSavings(newTransaction);
+                            Console.WriteLine($"You have deposited {newAmount} into your savings account.");
+                            transactionsController.SaveAllTransactions();
+                        }
                     }
                 }
                 if (choice == "W")
@@ -143,10 +164,20 @@ namespace FirstBankOfSuncoast
                             Amount = newAmount,
                             TransactionDate = DateTime.Now,
                         };
-
-                        transactionsController.WithdrawChecking(newTransaction);
-                        Console.WriteLine($"You have withdrew {newAmount} from your checking account.");
-                        transactionsController.SaveAllTransactions();
+                        if (newAmount <= 0)
+                        {
+                            Console.WriteLine("You have inputted an invalid amount. Returning to main menu and please try again.");
+                        }
+                        if (transactionsController.CheckingAccountValue < newAmount)
+                        {
+                            Console.WriteLine("This would cause your account to overdraft Returning to main menu");
+                        }
+                        else
+                        {
+                            transactionsController.WithdrawChecking(newTransaction);
+                            Console.WriteLine($"You have withdrew {newAmount} from your checking account.");
+                            transactionsController.SaveAllTransactions();
+                        }
                     }
 
                     if (choiceOfAccount == "S")
@@ -164,9 +195,20 @@ namespace FirstBankOfSuncoast
                             TransactionDate = DateTime.Now,
 
                         };
-                        transactionsController.WithdrawSavings(newTransaction);
-                        Console.WriteLine($"You have withdrew {newAmount} from your savings account.");
-                        transactionsController.SaveAllTransactions();
+                        if (newAmount <= 0)
+                        {
+                            Console.WriteLine("You have inputted an invalid amount. Returning to main menu and please try again.");
+                        }
+                        if (transactionsController.SavingsAccountValue < newAmount)
+                        {
+                            Console.WriteLine("This would cause your account to overdraft Returning to main menu");
+                        }
+                        else
+                        {
+                            transactionsController.WithdrawSavings(newTransaction);
+                            Console.WriteLine($"You have withdrew {newAmount} from your savings account.");
+                            transactionsController.SaveAllTransactions();
+                        }
                     }
                 }
 

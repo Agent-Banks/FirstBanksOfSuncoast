@@ -42,13 +42,14 @@ namespace FirstBankOfSuncoast
         public void DisplayCheckingAccountBalance()
         {
 
-
+            // gets values from csv file that are related to the checking account
             var checkingTransaction = Transactions.Where(transactions => transactions.AccountId == 1).ToList();
             var withdrawTotalValue = checkingTransaction.Where(transactions => transactions.TransactionType == "Withdraw");
             var depositTotalValue = checkingTransaction.Where(transactions => transactions.TransactionType == "Deposit");
+            // sums the total withdraw and deposit amounts from the csv file
             var withdrawTotal = withdrawTotalValue.Sum(transactions => transactions.Amount);
             var depositTotal = depositTotalValue.Sum(transactions => transactions.Amount);
-
+            // takes total value of deposit and withdraw and puts value in property
             CheckingAccountValue = depositTotal - withdrawTotal;
 
             Console.WriteLine($"Your current balance of your checking account is {CheckingAccountValue}");
@@ -56,12 +57,14 @@ namespace FirstBankOfSuncoast
 
         public void DisplaySavingsAccountBalance()
         {
+            // gets values from csv file that are related to the checking account
             var savingsTransaction = Transactions.Where(transactions => transactions.AccountId == 2).ToList();
             var withdrawTotalValue = savingsTransaction.Where(transactions => transactions.TransactionType == "Withdraw");
             var depositTotalValue = savingsTransaction.Where(transactions => transactions.TransactionType == "Deposit");
+            // sums the total withdraw and deposit amounts from the csv file
             var withdrawTotal = withdrawTotalValue.Sum(transactions => transactions.Amount);
             var depositTotal = depositTotalValue.Sum(transactions => transactions.Amount);
-
+            // takes total value of deposit and withdraw and puts value in property
             SavingsAccountValue = depositTotal - withdrawTotal;
 
             Console.WriteLine($"Your current balance of your savings account is {SavingsAccountValue}");

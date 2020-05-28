@@ -65,6 +65,7 @@ namespace FirstBankOfSuncoast
                     Console.WriteLine($"You have {transactionController.CheckingAccountValue} in your checking account");
                     Console.WriteLine($"You have {transactionController.SavingsAccountValue} in your savings account");
                 }
+
                 if (option == "Q")
                 {
                     userHasQuitApp = true;
@@ -77,10 +78,8 @@ namespace FirstBankOfSuncoast
 
                     if (typeOfAccount == "C")
                     {
-
                         var newAmount = PromptForDecimal("How much would you like to deposit? ");
                         var newTransaction = new Transaction
-
                         {
                             Id = Guid.NewGuid(),
                             AccountId = 1,
@@ -89,11 +88,11 @@ namespace FirstBankOfSuncoast
                             Amount = newAmount,
                             TransactionDate = DateTime.Now,
                         };
+
                         if (newAmount <= 0)
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu.");
                         }
-
                         else
                         {
                             transactionController.DepositChecking(newTransaction);
@@ -101,7 +100,6 @@ namespace FirstBankOfSuncoast
                             transactionController.SaveAllTransactions();
                             transactionController.ComputeCheckingAccountBalance();
                         }
-
                     }
 
                     if (typeOfAccount == "S")
@@ -115,13 +113,12 @@ namespace FirstBankOfSuncoast
                             TransactionType = "Deposit",
                             Amount = newAmount,
                             TransactionDate = DateTime.Now,
-
                         };
+
                         if (newAmount <= 0)
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu.");
                         }
-
                         else
                         {
                             transactionController.DepositSavings(newTransaction);
@@ -131,6 +128,7 @@ namespace FirstBankOfSuncoast
                         }
                     }
                 }
+
                 if (option == "W")
                 {
                     Console.WriteLine("Which account would you like to withdraw from? (C)hecking or (S)avings account.");
@@ -140,7 +138,6 @@ namespace FirstBankOfSuncoast
                     {
                         var newAmount = PromptForDecimal("How much would you like to withdraw? ");
                         var newTransaction = new Transaction
-
                         {
                             Id = Guid.NewGuid(),
                             AccountId = 1,
@@ -149,10 +146,12 @@ namespace FirstBankOfSuncoast
                             Amount = newAmount,
                             TransactionDate = DateTime.Now,
                         };
+
                         if (newAmount <= 0)
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu.");
                         }
+
                         if (transactionController.CheckingAccountValue < newAmount)
                         {
                             Console.WriteLine("This would cause your account to overdraft. Returning to main menu.");
@@ -169,10 +168,8 @@ namespace FirstBankOfSuncoast
 
                     if (typeOfAccount == "S")
                     {
-
                         var newAmount = PromptForDecimal("How much would you like to withdraw? ");
                         var newTransaction = new Transaction
-
                         {
                             Id = Guid.NewGuid(),
                             AccountId = 2,
@@ -182,10 +179,12 @@ namespace FirstBankOfSuncoast
                             TransactionDate = DateTime.Now,
 
                         };
+
                         if (newAmount <= 0)
                         {
                             Console.WriteLine("This is an invalid amount. Returning to main menu and please try again.");
                         }
+
                         if (transactionController.SavingsAccountValue < newAmount)
                         {
                             Console.WriteLine("This would cause your account to overdraft Returning to main menu");

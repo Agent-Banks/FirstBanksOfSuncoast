@@ -1,6 +1,6 @@
 # SDG Assignment #7 : 02 - 03 - First Bank of Suncoast
 
-Create your own personal bank account manager. You will be creating an app that will let you track both a savings account and a checking account total by performing transactions, such as withdrawals, deposits, and transfers. The application will also save your information in a file so you can track your account totals over time.
+Build a personal bank account manager. Create an app that will track both a savings account and a checking account total by performing transactions, such as withdrawals, deposits, and transfers. The application will also save information in a file so it can track account totals over time.
 
 ![Suncoast Bank Demo](https://github.com/codyb23/SDG-GIFS/blob/master/SuncoastBank.gif)
 

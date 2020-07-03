@@ -7,7 +7,7 @@ Create your own personal bank account manager. You will be creating an app that 
 ## Technologies used:
 .NET 4.7.1, C#, MVC, LINQ
 
-### Requirements
+### Requirements:
 
 - [x] The app should load past transactions from a file at start up.
 - [x] As a user I should be able to see the balances in my saving and checking account when the program first starts.

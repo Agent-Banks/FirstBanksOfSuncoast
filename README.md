@@ -4,7 +4,7 @@ Create your own personal bank account manager. You will be creating an app that 
 
 ![Suncoast Bank Demo](https://github.com/codyb23/SDG-GIFS/blob/master/SuncoastBank.gif)
 
-# Technologies used:
+## Technologies used:
 .NET 4.7.1, C#, MVC, LINQ
 
 ### Requirements

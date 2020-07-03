@@ -1,4 +1,4 @@
-# SDG Assignment #7 : 02 - 03 - First Bank of Suncoast
+# SDG Assignment #7 : First Bank of Suncoast
 
 Build a personal bank account manager. Create an app that will track both a savings account and a checking account total by performing transactions, such as withdrawals, deposits, and transfers. The application will also save information in a file so it can track account totals over time.
 
